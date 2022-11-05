@@ -1,6 +1,6 @@
 # LINQ to Objects
 
-Intermediate level task for practicing delegates and lambdas. 
+Intermediate level task for practice LINQ queries to collection classes. 
 
 Estimated time to complete the task - 6h.  
 
