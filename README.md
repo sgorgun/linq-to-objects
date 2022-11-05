@@ -2,7 +2,7 @@
 
 Intermediate level task for practicing delegates and lambdas. 
 
-Estimated time to complete the task - 4h.  
+Estimated time to complete the task - 6h.  
 
 The task requires .NET 6 SDK installed.  
 
