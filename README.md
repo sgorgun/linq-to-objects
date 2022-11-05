@@ -1,5 +1,11 @@
 # LINQ to Objects
 
+Intermediate level task for practicing delegates and lambdas. 
+
+Estimated time to complete the task - 4h.  
+
+The task requires .NET 6 SDK installed.  
+
 ## Task Description
 
 - Add implementations to the static methods of the following classes 
