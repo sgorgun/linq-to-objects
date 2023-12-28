@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CA1002
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,8 @@ namespace Linq
         {
             double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 };
 
-            throw new NotImplementedException();
+            var orderedDoubles = doubles.OrderByDescending(x => x).ToArray();
+            return orderedDoubles;
         }
 
         /// <summary>
@@ -29,7 +31,8 @@ namespace Linq
         {
             string[] words = { "cherry", "apple", "blueberry" };
 
-            throw new NotImplementedException();
+            var orderedWords = words.OrderBy(x => x).ToList();
+            return orderedWords;
         }
 
         /// <summary>
@@ -45,7 +48,9 @@ namespace Linq
                 (Name: "Cathy", Score: 45),
             };
 
-            throw new NotImplementedException();
+            var sortedScoreRecords = scoreRecords.OrderByDescending(x => x.Score).ToDictionary(x => x.Name, x => (x.Name, x.Score));
+
+            return sortedScoreRecords;
         }
 
         /// <summary>
@@ -56,7 +61,8 @@ namespace Linq
         {
             object[] numbers = { null, 1.0, "two", 3, "four", 5, "six", 7.0 };
 
-            throw new NotImplementedException();
+            var doublesNumbers = numbers.OfType<double>();
+            return doublesNumbers;
         }
     }
 }

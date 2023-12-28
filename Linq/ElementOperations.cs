@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CA1307, CA1825, S6602
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Linq.DataSources;
@@ -22,7 +23,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var first = products.First(x => x.Category.Contains("Product"));
+            return first;
         }
 
         /// <summary>
@@ -33,7 +35,8 @@ namespace Linq
         {
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var first = strings.First(x => x.StartsWith('o'));
+            return first;
         }
 
         /// <summary>
@@ -45,7 +48,8 @@ namespace Linq
         {
             int[] numbers = { };
 
-            throw new NotImplementedException();
+            var first = numbers.FirstOrDefault();
+            return first;
         }
 
         /// <summary>
@@ -57,7 +61,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var first = products.FirstOrDefault(x => x.ProductId == 789);
+            return first;
         }
 
         /// <summary>
@@ -69,7 +74,10 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var second = numbers
+                .Where(x => x > 5)
+                .ElementAt(1);
+            return second;
         }
 
         /// <summary>
@@ -80,7 +88,8 @@ namespace Linq
         {
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var last = strings.Last(x => x.Contains('o'));
+            return last;
         }
 
         /// <summary>
@@ -92,7 +101,8 @@ namespace Linq
         {
             int[] numbers = { };
 
-            throw new NotImplementedException();
+            var first = numbers.LastOrDefault();
+            return first;
         }
 
         /// <summary>
@@ -104,7 +114,8 @@ namespace Linq
         {
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = strings.Single(x => x.Contains('o'));
+            return query;
         }
 
         /// <summary>
@@ -116,19 +127,21 @@ namespace Linq
         {
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = strings.SingleOrDefault(x => x.Contains('o'));
+            return query;
         }
 
         /// <summary>
         /// Tries to find the only element of a sequence that contains symbol 'o'
-        /// and returns a default value since no such element exists
+        /// and returns a default value since no such element exists.
         /// </summary>
         /// <returns>The value null.</returns>
         public static string MaybeSingleMatchingElement()
         {
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = strings.Where(x => x.Contains('o')).ToList();
+            return query.Count == 1 ? query.Single() : null;
         }
     }
 }

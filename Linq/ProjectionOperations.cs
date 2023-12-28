@@ -1,5 +1,8 @@
-﻿using System;
+﻿#pragma warning disable S6562, CA1308
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
 using Linq.DataSources;
 
 namespace Linq
@@ -20,7 +23,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var query = numbers.Select(x => x + 1);
+            return query;
         }
 
         /// <summary>
@@ -31,7 +35,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = products.Select(x => x.ProductName);
+            return query;
         }
 
         /// <summary>
@@ -43,7 +48,8 @@ namespace Linq
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = numbers.Select(x => strings[x]);
+            return query;
         }
 
         /// <summary>
@@ -54,7 +60,9 @@ namespace Linq
         {
             string[] words = { "aPPLE", "BlUeBeRrY", "cHeRry" };
 
-            throw new NotImplementedException();
+            var query = words
+                .Select(x => (x.ToUpperInvariant(), x.ToLowerInvariant()));
+            return query;
         }
 
         /// <summary>
@@ -66,7 +74,8 @@ namespace Linq
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = numbers.Select(x => x % 2 == 0 ? (strings[x], true) : (strings[x], false));
+            return query;
         }
 
         /// <summary>
@@ -77,7 +86,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = products.Select(x => (x.ProductName, x.Category, x.UnitPrice));
+            return query;
         }
 
         /// <summary>
@@ -88,7 +98,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var query = numbers.Select((x, index) => x == index ? (x, true) : (x, false));
+            return query;
         }
 
         /// <summary>
@@ -100,7 +111,8 @@ namespace Linq
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = numbers.Where(x => x < 5).Select(x => digits[x]);
+            return query;
         }
 
         /// <summary>
@@ -112,7 +124,8 @@ namespace Linq
             int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 };
             int[] numbersB = { 1, 3, 5, 7, 8 };
 
-            throw new NotImplementedException();
+            var query = numbersA.SelectMany(a => numbersB.Where(b => a < b), (a, b) => (a, b));
+            return query;
         }
 
         /// <summary>
@@ -122,8 +135,13 @@ namespace Linq
         public static IEnumerable<(string customerId, int orderId, decimal total)> SelectFromChildSequence()
         {
             List<Customer> customers = Customers.CustomerList;
+            decimal total = 500.00m;
 
-            throw new NotImplementedException();
+            var query = customers
+                .SelectMany(customer => customer.Orders, (customer, order) => (customer, order))
+                .Where(t => t.order.Total < total)
+                .Select(x => (x.customer.CustomerId, x.order.OrderId, x.order.Total));
+            return query;
         }
 
         /// <summary>
@@ -135,7 +153,11 @@ namespace Linq
             List<Customer> customers = Customers.CustomerList;
             var dateTime = new DateTime(1998, 1, 1);
 
-            throw new NotImplementedException();
+            var query = customers
+                .SelectMany(customer => customer.Orders, (customer, order) => (customer, order))
+                .Where(d => d.order.OrderDate >= dateTime)
+                .Select(x => (x.customer.CustomerId, x.order.OrderId, x.order.OrderDate.ToString("dd-MMM-yy", CultureInfo.InvariantCulture)));
+            return query;
         }
 
         /// <summary>
@@ -145,8 +167,13 @@ namespace Linq
         public static IEnumerable<(string customerId, int orderId, decimal totalValue)> SelectManyWhereAssignment()
         {
             List<Customer> customers = Customers.CustomerList;
+            decimal total = 2000.00m;
 
-            throw new NotImplementedException();
+            var query = customers
+                .SelectMany(customer => customer.Orders, (customer, order) => (customer, order))
+                .Where(t => t.order.Total > total)
+                .Select(x => (x.customer.CustomerId, x.order.OrderId, x.order.Total));
+            return query;
         }
 
         /// <summary>
@@ -159,7 +186,12 @@ namespace Linq
             DateTime cutoffDate = new DateTime(1997, 1, 1);
             string region = "WA";
 
-            throw new NotImplementedException();
+            var query = customers
+                .Where(c => c.Region == region)
+                .SelectMany(c => c.Orders, (customer, order) => (customer, order))
+                .Where(t => t.order.OrderDate >= cutoffDate)
+                .Select(x => (x.customer.CustomerId, x.order.OrderId));
+            return query;
         }
 
         /// <summary>
@@ -170,7 +202,10 @@ namespace Linq
         {
             List<Customer> customers = Customers.CustomerList;
 
-            throw new NotImplementedException();
+            var query = customers
+                .SelectMany((customer, index) => customer.Orders
+                .Select(order => $"Customer #{index + 1} has an order with OrderID {order.OrderId}"));
+            return query;
         }
     }
 }

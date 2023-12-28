@@ -15,12 +15,13 @@ namespace Linq
         /// <summary>
         /// Gets only the first 3 elements of the source array.
         /// </summary>
-        /// <returns>The first 3 elements of the source array</returns>
+        /// <returns>The first 3 elements of the source array.</returns>
         public static IEnumerable<int> Take()
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var query = numbers.Take(3);
+            return query;
         }
 
         /// <summary>
@@ -30,7 +31,11 @@ namespace Linq
         {
             List<Customer> customers = Customers.CustomerList;
 
-            throw new NotImplementedException();
+            var query = customers
+                .Where(c => c.Region == "WA")
+                .SelectMany(c => c.Orders, (c, o) => (c.CustomerId, o.OrderId, o.OrderDate))
+                .Take(3);
+            return query;
         }
 
         /// <summary>
@@ -41,7 +46,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var querry = numbers.Skip(4);
+            return querry;
         }
 
         /// <summary>
@@ -52,7 +58,11 @@ namespace Linq
         {
             List<Customer> customers = Customers.CustomerList;
 
-            throw new NotImplementedException();
+            var query = customers
+                .Where(c => c.Region == "WA")
+                .SelectMany(c => c.Orders, (c, o) => (c.CustomerId, o.OrderId, o.OrderDate))
+                .Skip(2);
+            return query;
         }
 
         /// <summary>
@@ -63,7 +73,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var querry = numbers.TakeWhile(x => x < 6);
+            return querry;
         }
 
         /// <summary>
@@ -74,7 +85,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var querry = numbers.TakeWhile((n, index) => n >= index);
+            return querry;
         }
 
         /// <summary>
@@ -85,7 +97,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var querry = numbers.SkipWhile(numbers => numbers % 3 != 0);
+            return querry;
         }
 
         /// <summary>
@@ -96,7 +109,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var querry = numbers.SkipWhile((n, index) => n >= index);
+            return querry;
         }
     }
 }

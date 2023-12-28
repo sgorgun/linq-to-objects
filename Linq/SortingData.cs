@@ -23,7 +23,8 @@ namespace Linq
         {
             string[] words = { "cherry", "apple", "blueberry" };
 
-            throw new NotImplementedException();
+            var sortedWords = words.OrderBy(x => x);
+            return sortedWords;
         }
 
         /// <summary>
@@ -34,7 +35,8 @@ namespace Linq
         {
             string[] words = { "cherry", "apple", "blueberry" };
 
-            throw new NotImplementedException();
+            var sortedWords = words.OrderBy(x => x.Length);
+            return sortedWords;
         }
 
         /// <summary>
@@ -45,7 +47,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var sortedProducts = products.OrderBy(x => x.ProductName);
+            return sortedProducts;
         }
 
         /// <summary>
@@ -56,7 +59,8 @@ namespace Linq
         {
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
-            throw new NotImplementedException();
+            var sortedWords = words.OrderBy(x => x.ToUpperInvariant());
+            return sortedWords;
         }
 
         /// <summary>
@@ -67,7 +71,8 @@ namespace Linq
         {
             double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 };
 
-            throw new NotImplementedException();
+            var sortedDoubles = doubles.OrderByDescending(x => x);
+            return sortedDoubles;
         }
 
         /// <summary>
@@ -78,7 +83,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var productsSortedByUnits = products.OrderByDescending(x => x.UnitsInStock);
+            return productsSortedByUnits;
         }
 
         /// <summary>
@@ -89,7 +95,8 @@ namespace Linq
         {
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
-            throw new NotImplementedException();
+            var sortedWords = words.OrderByDescending(x => x.ToUpperInvariant());
+            return sortedWords;
         }
 
         /// <summary>
@@ -100,7 +107,10 @@ namespace Linq
         {
             string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var sortedDigits = digits
+                .OrderBy(x => x.Length)
+                .ThenBy(x => x);
+            return sortedDigits;
         }
 
         /// <summary>
@@ -111,7 +121,10 @@ namespace Linq
         {
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
-            throw new NotImplementedException();
+            var sortedWords = words
+                .OrderBy(x => x.Length)
+                .ThenBy(x => x.ToUpperInvariant());
+            return sortedWords;
         }
 
         /// <summary>
@@ -122,7 +135,10 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var sortedProducts = products
+                .OrderBy(x => x.Category)
+                .ThenByDescending(x => x.UnitPrice);
+            return sortedProducts;
         }
 
         /// <summary>
@@ -133,7 +149,10 @@ namespace Linq
         {
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
-            throw new NotImplementedException();
+            var sortedWords = words
+                .OrderBy(x => x.Length)
+                .ThenByDescending(x => x.ToUpperInvariant());
+            return sortedWords;
         }
 
         /// <summary>
@@ -144,7 +163,10 @@ namespace Linq
         {
             string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var sortedDigits = digits
+                .Where(x => x.Length >= 2 && x[1] == 'i')
+                .Reverse();
+            return sortedDigits;
         }
     }
 }

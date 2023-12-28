@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Linq.DataSources;
 using Linq.EqualityComparers;
@@ -21,7 +22,10 @@ namespace Linq
         {
             string[] words = { "blueberry", "chimpanzee", "abacus", "banana", "apple", "cheese" };
 
-            throw new NotImplementedException();
+            var query = words
+                .GroupBy(x => x.First())
+                .OrderBy(g => g.Key);
+            return query;
         }
 
         /// <summary>
@@ -32,7 +36,10 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var query = numbers
+                .GroupBy(x => x % 5)
+                .Select(g => (remainder: g.Key, numbers: g.AsEnumerable()));
+            return query;
         }
 
         /// <summary>
@@ -43,7 +50,11 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = products
+                .GroupBy(g => g.Category)
+                .Where(p => p.Count() <= 7)
+                .Select(g => (category: g.Key, productsName: g.Select(x => x.ProductName)));
+            return query;
         }
 
         /// <summary>
@@ -54,7 +65,9 @@ namespace Linq
         {
             string[] anagrams = { "from   ", "  mane", " salt", " earn ", "name   ", "  last   ", " near ", " form  ", "mean" };
 
-            throw new NotImplementedException();
+            var query = anagrams
+                .GroupBy(x => x.Trim(), new AnagramEqualityComparer());
+            return query;
         }
 
         /// <summary>
@@ -65,7 +78,10 @@ namespace Linq
         {
             string[] anagrams = { "from   ", "  mane", " salt", " earn ", "name   ", "  last   ", " near ", " form  ", "mean" };
 
-            throw new NotImplementedException();
+            var groupedAnagrams = anagrams
+                .Select(word => new { Key = word.Trim(), Value = word.ToUpperInvariant() })
+                .GroupBy(x => x.Key, x => x.Value, new AnagramEqualityComparer());
+            return groupedAnagrams;
         }
     }
 }

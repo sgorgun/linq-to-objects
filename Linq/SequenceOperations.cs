@@ -19,7 +19,8 @@ namespace Linq
             int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 };
             int[] numbersB = { 1, 3, 5, 7, 8 };
 
-            throw new NotImplementedException();
+            var querry = numbersA.Concat(numbersB);
+            return querry;
         }
 
         /// <summary>
@@ -31,7 +32,9 @@ namespace Linq
             List<Customer> customers = Customers.CustomerList;
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var querry = customers.Select(c => c.CompanyName)
+                .Concat(products.Select(p => p.ProductName));
+            return querry;
         }
 
         /// <summary>
@@ -43,7 +46,8 @@ namespace Linq
             int[] vectorA = { 0, 2, 4, 5, 6 };
             int[] vectorB = { 1, 3, 5, 7, 8 };
 
-            throw new NotImplementedException();
+            var dotProduct = vectorA.Zip(vectorB, (a, b) => a * b).Sum();
+            return dotProduct;
         }
     }
 }

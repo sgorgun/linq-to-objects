@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable S6603, S6605, CA1307
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Linq.DataSources;
@@ -23,7 +24,8 @@ namespace Linq
             var wordsA = new[] { "cherry", "apple", "blueberry" };
             var wordsB = new[] { "cherry", "apple", "blueberry" };
 
-            throw new NotImplementedException();
+            var match = wordsA.All(a => wordsB.Contains(a));
+            return match;
         }
 
         /// <summary>
@@ -35,7 +37,8 @@ namespace Linq
             var wordsA = new[] { "cherry", "apple", "blueberry" };
             var wordsB = new[] { "apple", "blueberry", "cherry" };
 
-            throw new NotImplementedException();
+            var match = wordsA.SequenceEqual(wordsB);
+            return match;
         }
 
         /// <summary>
@@ -46,7 +49,8 @@ namespace Linq
         {
             string[] words = { "believe", "relief", "receipt", "field" };
 
-            throw new NotImplementedException();
+            var contains = words.Any(x => x.Contains("ei"));
+            return contains;
         }
 
         /// <summary>
@@ -57,7 +61,11 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = products
+                .GroupBy(g => g.Category)
+                .Where(p => p.Any(x => x.UnitsInStock == 0))
+                .Select(g => (category: g.Key, products: g.Select(x => x)));
+            return query;
         }
 
         /// <summary>
@@ -68,7 +76,8 @@ namespace Linq
         {
             int[] numbers = { 1, 11, 3, 19, 41, 65, 19 };
 
-            throw new NotImplementedException();
+            var isOdd = numbers.All(x => x % 2 != 0);
+            return isOdd;
         }
 
         /// <summary>
@@ -79,7 +88,12 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var moreThanZero = products
+                .GroupBy(g => g.Category)
+                .Where(p => p.All(x => x.UnitsInStock > 0))
+                .Select(g => (category: g.Key, products: g.Select(x => x)));
+
+            return moreThanZero;
         }
 
         /// <summary>
@@ -90,7 +104,8 @@ namespace Linq
         {
             int[] numbers = { 2, 3, 4 };
 
-            throw new NotImplementedException();
+            var contains = numbers.Contains(3);
+            return contains;
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Linq
         {
             int[] numbers = { 2, 2, 3, 5, 5 };
 
-            throw new NotImplementedException();
+            var querry = numbers.Distinct();
+            return querry;
         }
 
         /// <summary>
@@ -33,7 +34,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var querry = products.Select(x => x.Category).Distinct();
+            return querry;
         }
 
         /// <summary>
@@ -45,7 +47,8 @@ namespace Linq
             int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 };
             int[] numbersB = { 1, 3, 5, 7, 8 };
 
-            throw new NotImplementedException();
+            var querry = numbersA.Union(numbersB);
+            return querry;
         }
 
         /// <summary>
@@ -57,7 +60,8 @@ namespace Linq
             List<Product> products = Products.ProductList;
             List<Customer> customers = Customers.CustomerList;
 
-            throw new NotImplementedException();
+            var query = products.Select(p => p.ProductName[0]).Union(customers.Select(c => c.CompanyName[0]));
+            return query;
         }
 
         /// <summary>
@@ -69,7 +73,8 @@ namespace Linq
             int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 };
             int[] numbersB = { 1, 3, 5, 7, 8 };
 
-            throw new NotImplementedException();
+            var querry = numbersA.Intersect(numbersB);
+            return querry;
         }
 
         /// <summary>
@@ -81,7 +86,11 @@ namespace Linq
             List<Product> products = Products.ProductList;
             List<Customer> customers = Customers.CustomerList;
 
-            throw new NotImplementedException();
+            var query = products
+                .Select(p => p.ProductName[0])
+                .Intersect(customers
+                .Select(c => c.CompanyName[0]));
+            return query;
         }
 
         /// <summary>
@@ -93,7 +102,8 @@ namespace Linq
             int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 };
             int[] numbersB = { 1, 3, 5, 7, 8 };
 
-            throw new NotImplementedException();
+            var query = numbersA.Except(numbersB);
+            return query;
         }
 
         /// <summary>
@@ -105,7 +115,11 @@ namespace Linq
             List<Product> products = Products.ProductList;
             List<Customer> customers = Customers.CustomerList;
 
-            throw new NotImplementedException();
+            var query = products
+                .Select(p => p.ProductName[0])
+                .Except(customers
+                .Select(c => c.CompanyName[0]));
+            return query;
         }
     }
 }

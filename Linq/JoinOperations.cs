@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Linq.DataSources;
@@ -31,7 +32,10 @@ namespace Linq
 
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = categories
+                .Join(products, category => category, product => product.Category, (category, product) => (category, product.ProductName));
+
+            return query;
         }
 
         /// <summary>
@@ -51,7 +55,10 @@ namespace Linq
 
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = categories
+                .GroupJoin(products, category => category, product => product.Category, (category, product) => (category, product));
+
+            return query;
         }
 
         /// <summary>
@@ -73,7 +80,11 @@ namespace Linq
 
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = categories
+               .GroupJoin(products, category => category, product => product.Category, (category, product) => (category, product))
+               .SelectMany(x => x.product.DefaultIfEmpty(), (category, product) => (category.category, productName: product?.ProductName ?? "(No products)"));
+
+            return query;
         }
     }
 }

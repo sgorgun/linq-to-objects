@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,8 @@ namespace Linq
         /// <returns>Empty sequence of integral numbers.</returns>
         public static IEnumerable<int> EmptySequence()
         {
-            throw new NotImplementedException();
+            IEnumerable<int> sequence = Enumerable.Empty<int>();
+            return sequence;
         }
 
         /// <summary>
@@ -27,7 +29,12 @@ namespace Linq
         /// </returns>
         public static IEnumerable<(int number, string oddEven)> RangeOfIntegers()
         {
-            throw new NotImplementedException();
+            int start = 100;
+            int end = 119;
+            var sequence = Enumerable
+                .Range(start, end - start + 1)
+                .Select(n => (n, n % 2 == 0 ? "even" : "odd"));
+            return sequence;
         }
 
         /// <summary>
@@ -36,7 +43,9 @@ namespace Linq
         /// <returns>The sequence that contains one repeated value. </returns>
         public static IEnumerable<int> RepeatNumber()
         {
-            throw new NotImplementedException();
+            int number = 7;
+            IEnumerable<int> sequence = Enumerable.Repeat(number, 10);
+            return sequence;
         }
     }
 }

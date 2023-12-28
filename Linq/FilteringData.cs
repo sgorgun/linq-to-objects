@@ -20,7 +20,8 @@ namespace Linq
         {
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            throw new NotImplementedException();
+            var query = numbers.Where(number => number < 5);
+            return query;
         }
 
         /// <summary>
@@ -31,7 +32,8 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = products.Where(product => product.UnitsInStock == 0);
+            return query;
         }
 
         /// <summary>
@@ -42,7 +44,10 @@ namespace Linq
         {
             List<Product> products = Products.ProductList;
 
-            throw new NotImplementedException();
+            var query = from product in products
+                                         where product.UnitsInStock > 0 && product.UnitPrice > 50
+                                         select product;
+            return query;
         }
 
         /// <summary>
@@ -53,7 +58,8 @@ namespace Linq
         {
             string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            throw new NotImplementedException();
+            var query = digits.Where((digit, index) => digit.Length < index);
+            return query;
         }
     }
 }
